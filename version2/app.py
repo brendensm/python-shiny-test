@@ -1,10 +1,11 @@
-from datetime import date
+from datetime import datetime
 import json
 import pandas as pd
 import requests
 from shiny import App, ui, render, reactive, req
 import asyncio
 import uuid  
+
 
 
 # Function to check if we're running in a browser/Shinylive environment
@@ -761,7 +762,7 @@ def server(input, output, session):
         # Create a new submission record
         new_submission = pd.DataFrame({
             "RowID": [str(uuid.uuid4())],  # Generate a unique ID
-            "Timestamp": [date.today().isoformat()],
+            "Timestamp": [datetime.now().strftime("%Y-%m-%d %H:%M:%S")],
             "BeverageType": [beverage_type],
             "BeverageName": [input.beverage_name()],
             "Recommendation": [recommendation_color],
